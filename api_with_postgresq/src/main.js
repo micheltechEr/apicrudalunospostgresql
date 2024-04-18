@@ -1,5 +1,5 @@
 import express from 'express'
-import {client} from '../dbfile.js'
+import {client} from '../db/dbfile.js'
 
 export const app = express()
 
