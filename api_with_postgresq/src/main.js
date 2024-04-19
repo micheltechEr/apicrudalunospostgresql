@@ -5,13 +5,16 @@ export const app = express()
 
 client.connect()
 
+app.use(express.json())
+
+
 app.get('/alunos',(req,res)=>{
 client.query('SELECT * FROM alunos',(err,result)=>{
     if(!err){
-        res.send(result.rows)
+        res.status(200).send(result.rows)
         }
         else{
-            res.send('Erro durante a busca')
+            res.send(404).send('Erro durante a busca,não encontramos alunos')
         }
     })
 })
