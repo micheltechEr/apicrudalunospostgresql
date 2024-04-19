@@ -28,7 +28,7 @@ app.post('/alunos',(req,res)=>{
             res.status(200).send('Inserido com sucesso')
         }
         else{
-            res.status(409).send('Erro durante a inserção')
+            res.status(409).send('Erro durante a inserção,favor verificar os dados inseridos')
         }
     })
 })
