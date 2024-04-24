@@ -34,16 +34,30 @@ app.post('/alunos',(req,res)=>{
 })
 
 app.put('/alunos/:id',(req,res)=>{
-    let student = req.body
+    const {nome,idade} = req.body
     let student_id = req.params.id
-    let queryUpdateCommand = `UPDATE alunos SET nome = ${student.nome},idade = ${student.idade} WHERE id_aluno =  ${student.id}`
+    let queryUpdateCommand = `UPDATE alunos SET nome = $1,idade = $2 WHERE id_aluno =  $3`
 
-    client.query(queryUpdateCommand,(err,result)=>{
+    client.query(queryUpdateCommand,[nome,idade,student_id],(err,result)=>{
         if(!err){
             res.status(200).send('Atualizado com sucesso')
         }
         else{
-            res.status(500).send(err.message)
+            res.status(400).send(err.message)
+        }
+    })
+})
+
+app.delete('/alunos/:id',(req,res)=>{
+    let student_id = req.params.id
+    let queryDeleteCommand = `DELETE FROM alunos WHERE id_aluno =  $1`
+
+    client.query(queryDeleteCommand,[student_id],(err,result)=>{
+        if(!err){
+            res.status(200).send('Removido com sucesso')
+        }
+        else{
+            res.status(400).send(err.message)
         }
     })
 })
